@@ -120,7 +120,7 @@ def video_analyze(request):
 
         detect_video_file = '/media/yolov5/runs/detect/exp/'+video_file.name
         # detect_txt_file = '/home/safezone' + detect_video_file.split('.mp4')[0] + '.txt'
-        detect_txt_file = '/home/safezone/' + detect_video_file.split('.mp4')[0] + '.txt'
+        detect_txt_file = '/home/safezone' + detect_video_file.split('.mp4')[0] + '.txt'
 
         f = open(detect_txt_file,'r')
         text_data = f.read()
