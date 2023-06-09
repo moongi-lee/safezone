@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+LsVWPG8T/1IcZOJxN9X7VJzrl8Zv7LZVLwOryH0MVtE/+JtURleOQzQ2cXf+QJOQ2RZJfFI/i+5ue5sh5q3qg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        :root {
+            --glitched-duration: 1s;
+        }
+
+        @keyframes hxafter {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            51% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body {
+            background-color: #0f1020;
+            font-family: 'nanumsquare', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #eaff00;
+            margin-bottom: 50px;
+        }
+
+        h1:after {
+            content: "_";
+            animation-name: hxafter;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 0.5s;
+        }
+    
+        .form-group {
+            margin-top: 500px;
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 50px;
+            background-color: #0f1020;
+            box-shadow: 0px 0px 10px #eaff00(0, 0, 0, 0.1);
+            border-radius: 5px;
+            border: 2px solid #eaff00;
+        }
+
+        .checkbox-container {
+            display: inline-block;
+        }
+
+        .checkbox-container label {
+            display: block;
+            margin-bottom: 20px;
+            margin-left: 0px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-container input[type="checkbox"] + span:before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #0f1020;
+            border: 2px solid #eaff00;
+            border-radius: 3px;
+            margin-right: 5px;
+            position: relative;
+            top: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + span:before {
+            background-color: #eaff00;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + span:before {
+            animation-name: glitch-checkbox;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+    
+        .checkbox-container input[type="checkbox"]:checked + span:before {
+            animation-delay: 0.5s;
+        }
+
+        #Discord {
+            position: relative;
+            top: 10px;
+            /* top: 50px; */
+        }
+
+        #email,
+        #phone {
+            position: relative;
+            left: 200px;
+            top: 10px;
+        }
+
+        .checkbox-container label span {
+            position: relative;
+            top: 10px;
+            left: 10px;
+        }
+
+        .checkbox-text {
+            margin-left: 200px;
+        }
+
+        .form-row {
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-row label {
+            flex-basis: 200px;
+            text-align: left;
+            padding-right: 10px;
+            color: #eaff00;
+        }
+
+        .form-row input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            text-align: left;
+            background-color: #ffffff;
+            color: #0f1020;
+            border: 1px solid #ffffff;
+            box-shadow: 0px 0px 3px #ffffff(0, 0, 0, 0.1);
+            border-radius: 3px;
+            margin-top: 5px;
+        }
+
+        .form-row input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            color: #0f1020;
+        }
+
+        /* .button-group {
+            display: flex;
+            justify-content: right;
+            gap: 10px;
+            width: 100%;
+        } */
+
+        label[for="violation-location"] {
+            margin-bottom: 10px;
+        }
+
+        #violation-location {
+            margin-bottom: 10px;
+        }
+
+        .btn-group {
+            margin-top: -60px;
+        }
+
+        .btn {
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: right;
+            margin-right: -10px;
+        }
+       
+        .btn-save {
+            margin-right: 10px;
+            background-color: #eaff00;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+            margin-bottom: 10px;
+        }
+
+        .btn-save:hover {
+            background-color: #0f1020;
+            border: 0.5px solid #eaff00;
+            color: #eaff00;
+        }
+
+        .btn-save:active {
+            background-color: #eaff00;
+            color: #0f1020;
+        }
+
+        .btn-main {
+            margin-right: 10px;
+            background-color: #0f1020;
+            border: 0.5px solid #eaff00;
+            color: #eaff00;
+            margin-bottom: 10px;
+        }
+
+        .btn-main:hover {
+            background-color: #eaff00;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+        }
+
+        .btn-main:active {
+            background-color: #0f1020;
+            color: #eaff00;
+        }
+
+        .btn-register {
+            margin-right: 10px;
+            background-color: #0f1020;
+            border: 0.5px solid #ff6800;
+            color: #ff6800;
+            margin-bottom: 20px;
+        }
+
+        .btn-register:hover {
+            background-color: #ff6800;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+        }
+
+        .btn-register:active {
+            background-color: #0f1020;
+            color: #ff6800;
+        }
+    </style>
+ </head>
+ <body>
+     <div class="container">
+         <form>
+             <div class="form-group">
+                <h1>Settings</h1>
+                
+                <div class="form-row">
+                    <label for="log-interval">로그 출력 간격</label>
+                    <input type="text" id="log-interval" name="log-interval" value="00:01:00">
+                </div>
+
+                <div class="form-row">
+                    <label for="notification">알림 수단</label>
+                    <div class="checkbox-container">
+                        <label for="Discord">
+                            <input type="checkbox" id="Discord" name="notification" value="Discord"><span>Discord</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="checkbox-container">
+                        <label for="email">
+                            <input type="checkbox" id="email" name="notification" value="email"><span class="checkbox-text">이메일</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="checkbox-container">
+                        <label for="phone">
+                            <input type="checkbox" id="phone" name="notification" value="phone"><span class="checkbox-text">휴대 전화</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <label for="log-location">로그 저장위치</label>
+                    <input type="text" id="log-location" name="log-location" value="D:/log">
+                </div>
+
+                <div class="form-row">
+                    <label for="video-location">영상 저장위치</label>
+                    <input type="text" id="video-location" name="video-location" value="D:/video">
+                </div>
+
+                <div class="form-row">
+                    <label for="violation-location">위반영상 저장위치</label>
+                    <input type="text" id="violation-location" name="violation-location" value="D:/video_Violations">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-save" id="open-folder-button" onclick="saveSettings()">저장</button>
+                    <button type="button" class="btn btn-main" onclick="location.href='main.html'">메인화면으로 돌아가기</button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-register" onclick="location.href='create_site_admin.html'">현장 관리자 등록</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

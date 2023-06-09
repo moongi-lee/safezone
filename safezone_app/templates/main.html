@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to the main page.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+LsVWPG8T/1IcZOJxN9X7VJzrl8Zv7LZVLwOryH0MVtE/+JtURleOQzQ2cXf+QJOQ2RZJfFI/i+5ue5sh5q3qg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://kit.fontawesome.com/35b6327311.js" crossorigin="anonymous"></script>
+    <script src="https://vjs.zencdn.net/7.15.4/video.js"></script>  <!--Video.js--> 
+    <link href="https://vjs.zencdn.net/7.15.4/video-js.css" rel="stylesheet" /> <!--Video.js--> 
+    <style>
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        :root {
+            --glitched-duration: 1s;
+        }
+
+        @keyframes hxafter {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            51% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body {
+            background-color: #0e0f37 !important;
+            font-family: 'nanumsquare', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            margin-top: 80px;
+            margin-left: 8%;
+            text-align: left;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        h1:after {
+            content: "_";
+            animation-name: hxafter;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 0.5s;
+        }
+        
+        .cctv-container {
+            width: 55%;
+            margin: auto;
+            margin-top: 50px;
+            margin-left: 5%;
+        }
+
+        .cctv-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .cctv-camera {
+            display: inline-block;
+            width: calc(33.3% - 2.5%);
+            height: 170px;
+            margin-bottom: 2.5%;
+            margin-right: 2.5%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            font-size: 1.5rem;
+            line-height: 2rem;
+            font-weight: bold;
+            vertical-align: top;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ffffff(0, 0, 0, 0.1);
+            border: 2px solid #ffffff;
+            overflow: hidden;
+        }
+
+        .cctv-camera img {
+            border-radius: 10px;
+            /* position: absolute; */
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .cctv-camera video {
+            border-radius: 10px;
+            /* position: absolute; */
+            /* transform: translate(-100%, -100%); */
+            object-fit: cover;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+       
+        .camera-name {
+            color: #00eaff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+
+        .violation-box {
+            padding: 20px;
+            margin-right: 5%;
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px #ffffff(0, 0, 0, 0.1);
+            border: 2px solid #00eaff;
+            border-radius: 10px;
+            position: absolute;
+            top: 133px;
+            right: 30px;
+            width: 400px;
+            height: auto;
+            margin-top: 30px;
+        }
+
+        .violation-box div {
+            margin-bottom: 10px;
+        }
+
+        .violation-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .violation-content {
+            width: 100%;
+            height: 240px;
+            resize: none;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+        }
+
+        .button-container button {
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: right;
+            margin-right: 100px;
+            gap: 10px;
+            width: 100%;
+        }
+
+        #logout-button {
+            position: absolute;
+            top: 80px;
+            right: 100px;
+            z-index: 1;
+        }
+
+        #mypage-button {
+            position: absolute;
+            top: 80px;
+            right: 190px;
+            z-index: 1;
+        }
+        
+        .button-set {
+            display: flex;
+            justify-content: right;
+            margin-right: 100px;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-logout {
+            background-color: #00eaff;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+            margin-bottom: 20px;
+        }
+
+        .btn-logout:hover {
+            background-color: #0f1020;
+            border: 0.5px solid #00eaff;
+            color: #00eaff;
+        }
+
+        .btn-logout:active {
+            background-color: #00eaff;
+            color: #0f1020;
+        }
+
+        .btn-save0 {
+            background-color: #0f1020;
+            border: 0.5px solid #00eaff;
+            color: #00eaff;
+            margin-bottom: 20px;
+        }
+
+        .btn-save0:hover {
+            background-color: #00eaff;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+        }
+
+        .btn-save0:active {
+            background-color: #0f1020;
+            color: #00eaff;
+        }
+
+        .btn-clear {
+            background-color: #00eaff;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+            margin-bottom: 20px;
+        }
+
+        .btn-clear:hover {
+            background-color: #0f1020;
+            border: 0.5px solid #00eaff;
+            color: #00eaff;
+        }
+
+        .btn-clear:active {
+            background-color: #00eaff;
+            color: #0f1020;
+        }
+
+        .btn-settings,
+        .btn-save,
+        .btn-video,
+        .btn-webcam {
+            margin-right: 10px;
+            background-color: #0f1020;
+            border: 0.5px solid #ff6800;
+            color: #ff6800;
+            margin-bottom: 20px;
+        }
+
+        .btn-settings:hover,
+        .btn-save:hover,
+        .btn-video:hover,
+        .btn-webcam:hover {
+            background-color: #ff6800;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+        }
+
+        .btn-settings:active,
+        .btn-save:active,
+        .btn-video:active,
+        .btn-webcam:active {
+            background-color: #0f1020;
+            color: #ff6800;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 50px;
+            background-color: #253659;
+        }
+
+        .sidebar i{
+            position: absolute;
+            left: 12.5px;
+            top: 750px;
+            font-size: 24px;
+            color: #ff6800;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <div class="sidebar">
+        <i class="fa-solid fa-power-off"></i>
+    </div>
+    <section>
+        <h1>CCTV 연동화면</h1>
+            {# 로그아웃 버튼 변경 #}
+        <a id="logout-button" class="btn btn-primary" href="{% url 'account_app:logout' %}?next={% url 'account_app:login' %}">로그아웃</a>
+        <a id="mypage-button" class="btn btn-primary" href="{% url 'account_app:profile' pk=user.pk %}"><span>마이페이지</span></a>
+        <div class="cctv-container">
+            <div class="cctv-row">
+                <div class="cctv-camera" id="cctv-1" data-area="1" data-visible="1">
+                    
+                    <video id="my-video1" class="video-js vjs-default-skin" controls></video> <!--video.js를 사용하여 실시간 영상 불러오기-->
+                    <div class="zoom-in-button" onclick="zoomInCamera('my-video')">
+                        <i class='fa-solid fa-arrow-up-right-and-arrow-down-left-from-center' style='color: #00eaff;'></i>
+                    </div>
+                    <!--<img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+1" alt="CCTV 1">-->
+                </div>
+                <div class="camera-name" style="top: 332px; left: 165px;">CCTV-1</div>
+
+                <div class="cctv-camera" id="cctv-2" data-area="2" data-visible="2">
+                    <video id="my-video2" class="video-js vjs-default-skin" controls></video> <!--video.js를 사용하여 실시간 영상 불러오기-->
+                    <div class="zoom-in-button" onclick="zoomInCamera('my-video')">
+                        <i class='fa-solid fa-arrow-up-right-and-arrow-down-left-from-center' style='color: #00eaff;'></i>
+                    </div>
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+2" alt="CCTV 2"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-3" data-area="3" data-visible="3">
+                    <video id="my-video3" class="video-js vjs-default-skin" controls></video> <!--video.js를 사용하여 실시간 영상 불러오기-->
+                    <div class="zoom-in-button" onclick="zoomInCamera('my-video')">
+                        <i class='fa-solid fa-arrow-up-right-and-arrow-down-left-from-center' style='color: #00eaff;'></i>
+                    </div>
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+3" alt="CCTV 3"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-4" data-area="4" data-visible="4">
+                    <video id="my-video4" class="video-js vjs-default-skin" controls></video> <!--video.js를 사용하여 실시간 영상 불러오기-->
+                    <div class="zoom-in-button" onclick="zoomInCamera('my-video')">
+                        <i class='fa-solid fa-arrow-up-right-and-arrow-down-left-from-center' style='color: #00eaff;'></i>
+                    </div>
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+4" alt="CCTV 4"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-5" data-area="5" data-visible="5">
+                    <video id="my-video5" class="video-js vjs-default-skin" controls></video> <!--video.js를 사용하여 실시간 영상 불러오기-->
+                    <div class="zoom-in-button" onclick="zoomInCamera('my-video')">
+                        <i class='fa-solid fa-arrow-up-right-and-arrow-down-left-from-center' style='color: #00eaff;'></i>
+                    </div>
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+5" alt="CCTV 5"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-6" data-area="6" data-visible="6">
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+6" alt="CCTV 6"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-7" data-area="7" data-visible="7">
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+7" alt="CCTV 7"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-8" data-area="8" data-visible="8">
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+8" alt="CCTV 8"> -->
+                </div>
+                <div class="cctv-camera" id="cctv-9" data-area="9" data-visible="9">
+                    <!-- <img src="https://dummyimage.com/640x480/000/ffffff&text=CCTV+9" alt="CCTV 9"> -->
+                </div>
+            </div>
+            <div class="violation-box">
+                <div class="violation-text">위반 사항</div>
+                <div>
+                    <select id="area-select">
+                        <option value="1">1 구역</option>
+                        <option value="2">2 구역</option>
+                        <option value="3">3 구역</option>
+                        <option value="4">4 구역</option>
+                        <option value="5">5 구역</option>
+                        <option value="6">6 구역</option>
+                        <option value="7">7 구역</option>
+                        <option value="8">8 구역</option>
+                        <option value="9">9 구역</option>
+                    </select>
+                </div>
+                <div>
+                    <textarea id="violation-content" class="violation-content" rows="5"></textarea>
+                </div>
+                <div class="button-group">
+                    <button onclick="save0Text()" id="save0-button" class="btn btn-save0">Save</button>
+                    <button onclick="clearText()" id="clear-button" class="btn btn-clear">Clear</button>
+                </div>
+                <div class="button-container">
+                    <button class="btn btn-settings" onclick="location.href='settings.html'">Settings</button>
+                    <button class="btn btn-save">Save File</button>
+                    <form action="{% url 'safezone_app:video' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-video">Video Upload</button>
+                    </form>
+                    <form action="{% url 'safezone_app:yolov5_webcam' %}" method = "POST">
+                        {% csrf_token %}
+                        <button class="btn btn-webcam">실시간 인식</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</section>
+</main>
+
+<script>
+    // JW Player 설정
+    var player = videojs('my-video1', {
+        sources: [{
+          src: 'http://210.99.70.120:1935/live/cctv001.stream/playlist.m3u8',
+          type: 'application/x-mpegURL'
+        }],
+        width: '240px',
+        height: '166px',
+        autoplay: true
+      });
+    var player = videojs('my-video2', {
+      sources: [{
+        src: 'http://210.99.70.120:1935/live/cctv002.stream/playlist.m3u8',
+        type: 'application/x-mpegURL'
+      }],
+      width: '240px',
+      height: '166px',
+      autoplay: true
+    });
+    var player = videojs('my-video3', {
+        sources: [{
+          src: 'http://210.99.70.120:1935/live/cctv003.stream/playlist.m3u8',
+          type: 'application/x-mpegURL'
+        }],
+        width: '240px',
+        height: '166px',
+        autoplay: true
+      });
+    var player = videojs('my-video4', {
+      sources: [{
+        src: 'http://210.99.70.120:1935/live/cctv004.stream/playlist.m3u8',
+        type: 'application/x-mpegURL'
+      }],
+      width: '240px',
+      height: '166px',
+      autoplay: true
+    });
+    var player = videojs('my-video5', {
+      sources: [{
+        src: 'http://210.99.70.120:1935/live/cctv005.stream/playlist.m3u8',
+        type: 'application/x-mpegURL'
+      }],
+      width: '240px',
+      height: '166px',
+      autoplay: true
+    });
+    // AJAX 요청 보내기
+    function sendRequest() {
+      $.ajax({
+        type: 'GET',
+        url: '/run_yolov5_webcam/',  // 요청을 처리할 URL
+        success: function(data) {
+          // 응답 처리
+          console.log(data.output);  // 응답 데이터 콘솔에 출력
+        },
+        error: function(xhr, status, error) {
+          // 오류 처리
+          console.error(error);
+        }
+      });
+    }
+
+    // 페이지 로드 시 자동으로 AJAX 요청 보내기
+    $(document).ready(function() {
+        sendRequest();
+    });
+
+    function zoomInCamera() {
+        var cameras = document.getElementsByClassName("camera");
+
+        for (var i = 0; i < cameras.length; i++) {
+            cameras[i].addEventListener("click", function() {
+            this.style.width = "100%";
+            this.style.paddingTop = "65%";
+            this.style.marginBottom = "0";
+            this.style.marginRight = "0";
+            this.style.zIndex = "999";
+            });
+        }
+    }
+
+    zoomInCamera();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var cameras = document.getElementsByClassName("cctv-camera");
+
+        for (var i = 0; i < cameras.length; i++) {
+            // 카메라 확대
+            cameras[i].addEventListener("click", function () {
+                this.style.width = "100%";
+                this.style.paddingTop = "65%";
+                this.style.marginBottom = "0";
+                this.style.marginRight = "0";
+                this.style.zIndex = "999";
+
+                // 축소 버튼 추가
+                var zoomOutButton = document.createElement("button");
+                zoomOutButton.innerHTML = "<i class='fa-solid fa-down-left-and-up-right-to-center' style='color: #00eaff;'></i>";
+                zoomOutButton.style.backgroundColor = "transparent";
+                zoomOutButton.style.border = "none";
+                zoomOutButton.style.position = "absolute";
+                zoomOutButton.style.top =  "175px";
+                zoomOutButton.style.right = "660px";
+                zoomOutButton.style.zIndex = "1000";
+                this.parentElement.appendChild(zoomOutButton);
+
+                // 축소 버튼 클릭
+                zoomOutButton.addEventListener("click", function () {
+                    // 카메라 축소
+                    for (var j = 0; j < cameras.length; j++) {
+                        cameras[j].style.width = "";
+                        cameras[j].style.paddingTop = "";
+                        cameras[j].style.marginBottom = "";
+                        cameras[j].style.marginRight = "";
+                        cameras[j].style.zIndex = "";
+                        cameras[j].style.display = "inline-block";
+                    }
+
+                    // 축소 버튼 삭제
+                    zoomOutButton.addEventListener("transitionend", function () {
+                        zoomOutButton.remove();
+                    });
+
+                    // 버튼 숨기기 애니메이션 시작
+                    zoomOutButton.style.opacity = "0";
+                });
+
+                
+                // 다른 카메라 숨기기
+                for (var j = 0; j < cameras.length; j++) {
+                    if (cameras[j] !== this) {
+                        cameras[j].style.display = "none";
+                    }
+                }
+            });
+        }
+    });
+
+    // 선택박스 값 변경 시 위반사항 텍스트 박스 내용 변경
+    var areaSelect = document.getElementById("area-select");
+    var violationContent = document.getElementById("violation-content");
+
+    areaSelect.addEventListener("change", function () {
+        var selectedArea = areaSelect.value;
+        if (selectedArea === "1") {
+            violationContent.value = "1 구역 위반 사항 내용";
+        } else if (selectedArea === "2") {
+            violationContent.value = "2 구역 위반 사항 내용";
+        } else if (selectedArea === "3") {
+            violationContent.value = "3 구역 위반 사항 내용";
+        } else if (selectedArea === "4") {
+            violationContent.value = "4 구역 위반 사항 내용";
+        } else if (selectedArea === "5") {
+            violationContent.value = "5 구역 위반 사항 내용";
+        } else if (selectedArea === "6") {
+            violationContent.value = "6 구역 위반 사항 내용";
+        } else if (selectedArea === "7") {
+            violationContent.value = "7 구역 위반 사항 내용";
+        } else if (selectedArea === "8") {
+            violationContent.value = "8 구역 위반 사항 내용";
+        } else if (selectedArea === "9") {
+            violationContent.value = "9 구역 위반 사항 내용";
+        } else {
+            violationContent.value = "";
+        }
+    });
+
+    // CCTV 클릭 시 선택박스 및 violation box 변경
+    const cctvCameras = document.querySelectorAll('.cctv-camera');
+    cctvCameras.forEach(camera => {
+        camera.addEventListener('click', () => {
+            const selectedArea = camera.dataset.area;
+            const areaSelect = document.querySelector('#area-select');
+            const violationContent = document.querySelector('#violation-content');
+            areaSelect.value = selectedArea;
+            if (selectedArea === "1") {
+                violationContent.value = "1 구역 위반 사항 내용";
+            } else if (selectedArea === "2") {
+                violationContent.value = "2 구역 위반 사항 내용";
+            } else if (selectedArea === "3") {
+                violationContent.value = "3 구역 위반 사항 내용";
+            } else if (selectedArea === "4") {
+                violationContent.value = "4 구역 위반 사항 내용";
+            } else if (selectedArea === "5") {
+                violationContent.value = "5 구역 위반 사항 내용";
+            } else if (selectedArea === "6") {
+                violationContent.value = "6 구역 위반 사항 내용";
+            } else if (selectedArea === "7") {
+                violationContent.value = "7 구역 위반 사항 내용";
+            } else if (selectedArea === "8") {
+                violationContent.value = "8 구역 위반 사항 내용";
+            } else if (selectedArea === "9") {
+                violationContent.value = "9 구역 위반 사항 내용";
+            } else {
+                violationContent.value = "";
+            }
+        });
+    });
+    // SAVE, CLEAR BUTTON
+    // // 페이지가 로드될 때 텍스트 박스의 값을 복원합니다.
+    // window.onload = function() {
+    // var savedText = localStorage.getItem("myText");
+    // if (savedText) {
+    //     document.getElementById("myTextarea").value = savedText;
+    // }
+    // };
+
+    // // 텍스트 박스의 값을 로컬 스토리지에 저장합니다.
+    // function saveText() {
+    // var text = document.getElementById("myTextarea").value;
+    // localStorage.setItem("myText", text);
+    // }
+
+    // // 텍스트 박스의 값을 지웁니다.
+    // function clearText() {
+    // document.getElementById("myTextarea").value = "";
+    // // 로컬 스토리지에서 저장된 값을 제거합니다.
+    // localStorage.removeItem("myText");
+    // }
+</script>
+</body>
+</html>
+
+<!-- 라이브 캠 html
+<div class="cctv-camera" id="cctv-9">]
+  <video src="라이브 캠 소스" alt="CCTV 9" autoplay></video>
+  <div class="camera-name">CCTV-9</div>
+</div>
+ -->
+ 
+<!-- 라이브 캠 javascript
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(function(stream) {
+    var videoElement = document.getElementById("cctv-9");
+    videoElement.srcObject = stream;
+  })
+  .catch(function(error) {
+    console.error("라이브 캠을 가져오는 중 오류가 발생했습니다:", error);
+  });
+ -->

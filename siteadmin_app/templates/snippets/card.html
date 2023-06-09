@@ -1,0 +1,109 @@
+<style>
+.image-container {
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.card-img-top {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.form-group {
+    margin-top: 500px;
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 50px;
+    background-color: #0f1020;
+    box-shadow: 0px 0px 10px #eaff00(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 2px solid #eaff00;
+}
+
+.form-group form {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #eaff00;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    font-size: 1.5rem;
+    color: #0f1020;
+    border: 1px solid #ffffff;
+    box-shadow: 0px 0px 3px #ffffff(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="email"]:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    color: #0f1020;
+}
+.form-group select,
+.form-group input[type="tel"] {
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    font-size: 1.5rem;
+    color: #0f1020;
+    border: 1px solid #ffffff;
+    box-shadow: 0px 0px 3px #ffffff(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-group input[type="tel"]:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    color: #0f1020;
+}
+
+.form-group select {
+    font-size: 1.15rem;
+}
+
+.form-group input[type="email"] {
+    margin-bottom: 50px;
+}
+
+</style>
+
+<div class="form-group">
+    <div>
+        <img class="card-img-top" src="{{ siteadmin.image.url }}" alt="Admin Image"
+             style="display: block">
+    </div>
+    <div>
+        {{ siteadmin.name }}
+    </div>
+    <div>
+        {{ siteadmin.get_management_locations_display }}
+    </div>
+    <div>
+        {{ siteadmin.phone }}
+    </div>
+</div>
+

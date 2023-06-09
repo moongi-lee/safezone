@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+</head>
+<body>
+    <h1>Pi Video Surveillance</h1>
+    <h1 id="count">0</h1>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <h1>Yolov5 Webcam Detection</h1>
+
+    <button id="stopButton" disabled>Stop Detection</button>
+    <button id="homeButton">Home</button>
+    
+    <div id="output"></div>
+<script>
+    $(document).ready(function() {
+        
+        $("#stopButton").click(function() {
+            $(this).prop("disabled", true);
+            $("#homeButton").prop("disabled", false);
+            $("#output").html("Stopping detection...");
+    
+            $.ajax({
+                url: "/yolov5_webcam/",
+                type: "GET",
+                data: {
+                    'stop_flag': true
+                },
+                success: function(response) {
+                    $("#output").html(response.message);
+                    $("#startButton").prop("disabled", false);
+                },
+                error: function(xhr) {
+                    $("#output").html("Error: " + xhr.responseText);
+                    $("#startButton").prop("disabled", false);
+                }
+            });
+        });
+    
+        $("#homeButton").click(function() {
+            window.location.href = "/";
+        });
+
+    });
+</script>
+</body>
+</html>

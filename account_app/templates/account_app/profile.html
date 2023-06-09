@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mypage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+LsVWPG8T/1IcZOJxN9X7VJzrl8Zv7LZVLwOryH0MVtE/+JtURleOQzQ2cXf+QJOQ2RZJfFI/i+5ue5sh5q3qg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        :root {
+            --glitched-duration: 1s;
+        }
+
+        @keyframes hxafter {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            51% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body {
+            background-color: #0f1020;
+            font-family: 'nanumsquare', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #eaff00;
+            margin-bottom: 50px;
+        }
+
+        h1:after {
+            content: "_";
+            animation-name: hxafter;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 0.5s;
+        }
+
+        .form-group {
+            margin-top: 500px;
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 50px;
+            background-color: #0f1020;
+            box-shadow: 0px 0px 10px #eaff00(0, 0, 0, 0.1);
+            border-radius: 5px;
+            border: 2px solid #eaff00;
+        }
+
+        .form-group form {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #eaff00;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="email"] {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            font-size: 1.5rem;
+            color: #0f1020;
+            border: 1px solid #ffffff;
+            box-shadow: 0px 0px 3px #ffffff(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group input[type="email"]:focus {
+            outline: none;
+            box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            color: #0f1020;
+        }
+
+        /* .form-group input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #008CBA;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #00587a;
+        } */
+
+        .form-group select,
+        .form-group input[type="tel"] {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            font-size: 1.5rem;
+            color: #0f1020;
+            border: 1px solid #ffffff;
+            box-shadow: 0px 0px 3px #ffffff(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-group input[type="tel"]:focus {
+            outline: none;
+            box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            color: #0f1020;
+        }
+
+        .form-group select {
+            font-size: 1.15rem;
+        }
+
+        .form-group input[type="email"] {
+            margin-bottom: 50px;
+        }
+
+        .btn {
+            font-size: 16px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: right;
+            margin-right: -10px;
+        }
+
+        .btn-register {
+            margin-right: 10px;
+            background-color: #eaff00;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+            margin-bottom: 30px;
+        }
+
+        .btn-register:hover {
+            background-color: #0f1020;
+            border: 0.5px solid #eaff00;
+            color: #eaff00;
+        }
+
+        .btn-register:active {
+            background-color: #eaff00;
+            color: #0f1020;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-group">
+            <h1>관리자 정보</h1>
+            {{ form.as_p }}
+
+            {% if target_user.pk == request.user.pk %}
+            <a href="{% url 'account_app:update' pk=user.pk %}">
+                <p>
+                    프로필수정
+                </p>
+            </a>
+              <a href="{% url 'account_app:delete' pk=user.pk %}">
+                <p>
+                    관리자삭제
+                </p>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

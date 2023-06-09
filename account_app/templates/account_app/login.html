@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>로그인</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+LsVWPG8T/1IcZOJxN9X7VJzrl8Zv7LZVLwOryH0MVtE/+JtURleOQzQ2cXf+QJOQ2RZJfFI/i+5ue5sh5q3qg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://kit.fontawesome.com/35b6327311.js" crossorigin="anonymous"></script>
+    <script>
+        $.ajaxSetup({
+          headers: { "X-CSRFToken": '{{csrf_token}}' }
+        });
+    </script>
+      
+    <style>
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        /* :root {
+            --glitched-duration: 1s;
+        }
+
+        @keyframes hxafter {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            51% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        } */
+
+        body {
+            background-color: #0e0f37;
+            font-family: 'nanumsquare', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #eaff00;
+            margin-bottom: 50px;
+        }
+
+        h1:after {
+            content: "_";
+            animation-name: hxafter;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 0.5s;
+        }
+
+        /* .form-container {
+            margin-top: 500px;
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 50px;
+            background-color: #0f1020;
+            box-shadow: 0px 0px 10px #eaff00 0.1;
+            border-radius: 5px;
+            border: 2px solid #eaff00;
+        } */
+
+        .form-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            padding: 50px;
+            min-width: 500px;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            box-shadow: 0px 0px 10px #ffffff 0.1;
+            border-radius: 5px;
+            border: 2px solid #ffffff;
+        }
+        
+        /* .form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        } */
+        
+        .form-container label {
+            margin-left: 40px;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0f1020;
+        }
+        
+        .form-container input[type="text"],
+        .form-container input[type="password"] {
+            /* padding: 10px;
+            border: none;
+            border-radius: 3px;
+            margin-left: 40px;
+            width: 80%;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            font-size: 1.5rem;
+            color: #0f1020;
+            border: 1px solid #0f1020;
+            box-shadow: 0px 0px 3px #0f1020(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out; */
+            border-radius: 3px;
+            width: 100%; 
+            padding: 12px 40px; 
+            margin: 8px 0;
+            background-color: #ffffff;
+            display: inline-block; 
+            color: #0e0f37;
+            border: 1px solid #0e0f37; 
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-container input[type="password"] {
+            margin-bottom: 70px;
+        }
+        
+        .form-container input[type="text"]:focus,
+        .form-container input[type="password"]:focus {
+            outline: none;
+            color: #0e0f37;
+            box-shadow: 0px 0px 5px #ffffff(0, 0, 0, 0.2);
+            background-color: #ffffff;
+        }
+    
+        /* .form-container input[type="submit"] {
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #008CBA;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;ㅅ
+            transition: all 0.3s ease-in-out;
+        } */
+        
+        /* .form-container input[type="submit"]:hover {
+            background-color: #b2b5d1;
+        } */
+
+        /* .btn {
+            font-size: 16px;
+        } */
+        
+        .btn-container {
+            display: flex;
+            justify-content: right;
+            margin-right: -10px;
+        }
+       
+        .btn-login {
+            margin-right: 10px;
+            background-color: #D456FA;
+            border: 2px solid #D456FA;
+            border-radius: 20px;
+            color: #ffffff;
+            margin-bottom: 30px;
+            position: absolute;
+            width: 380px;
+            font-size: 2rem;
+            font-weight: bold;
+            height: 50px;
+            left: 57.5px;
+            top: 470px;
+        }
+
+        .btn-login:hover {
+            background-color: #ffffff;
+            border: 2px solid #D456FA;
+            color: #D456FA;
+        }
+
+        .btn-login:active {
+            background-color: #D456FA;
+            color: #ffffff;
+        }
+
+        /* .btn-register {
+            margin-right: 10px;
+            background-color: #0f1020;
+            border: 0.5px solid #737cd4;
+            color: #737cd4;
+            margin-bottom: 30px;
+        }
+
+        .btn-register:hover {
+            background-color: #737cd4;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+        }
+
+        .btn-register:active {
+            background-color: #0f1020;
+            color: #737cd4;
+        } */
+
+        .logo {
+            width: 100px;
+            height: 120px;
+            margin-left: 150px;
+            margin-top: 20px;
+        }
+
+        .logo_name {
+            margin-top: 10px;
+            width: 300px;
+            height: 50px;
+            margin-left: 50px;
+            margin-bottom: 40px;
+        }
+
+        .form-container label i {
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .register-button {
+            margin-top: 50px;
+            position: relative;
+            right: 170px;
+            margin-bottom: 30px;
+            text-decoration: underline;
+            cursor: pointer;
+            color: #5a5a5f;
+            font-weight: bold;
+        }
+
+        .username-container {
+            position: relative;
+        }
+          
+        .username-container i{
+            position: absolute;
+            left: 13px;
+            top: 25px;
+            font-size: 18px;
+            color: #0e0f37;
+        }
+          
+        .password-container {
+            position: relative;
+        }
+          
+        .password-container i{
+            position: absolute;
+            left: 13px;
+            top: 32px;
+            color: #0e0f37;
+        }
+
+        ::placeholder {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+{#    <div class="form-container">#}
+{#        <img src="https://lh3.googleusercontent.com/YrZvK386PmWFaKCHDtGu_P9w4PoSP6B6pON9Zg8__Fvk-KpxdUdWtRj2iZAU2R7PaFnn-PgrO5nDg_WnmKsbqSB5t9D-YkLRhZQ3XZdnUeakv8JUtDhkHFowEYjPXUpTr1w5yuhdKw963b4DY-CveJOo_aVPqce5RZAgq5ArWgzyI9Zk58XgFH509cV-8s-doFKGZdy65maHS7hv5FAwLwDqYhfr3dOqUg_BJslSbaM95xa-_EG2D_sdpaBMk--isPSwckeJgFGwueI7b_2GDgmi98p5Q9tkqLSeav7Q-jXm90t4VxuLL-EEtrfHL4ywD43FFoyxyXHenS_MSTp4U7O0vV5NGV6vSo5eCJit95x7tunJbBkHAWui1_X4SMw6H9BYMcI754QMiwgC9aYogvOb63ISv8WY3Kjk52uEOSGvmI17tw2BkRbqHXHnoYKVQANgaWe34gqrqzbyFatfyjNh2VC-Gs19orHC_t61622CrRs73D_0FgieFqw0l0Rfd54wu_rIhYUmF3rNKegjqvyU2hEQ_mydeumeuayVfUxkTGVQioUv5yOgajw0cFMx4rQGVSIBeXvlQcoCFU-saYuyirzm2taeRGACev2bWHdShK_xu3V4fwVMQz1B2wDndTmbmj3P4sVD_Wh1IsutWHmEWP6Qpg-q838mKMnjKbk0LTkGET0xx89gr_MYGEoH5HTW5q983VggNCXD-OO_74wLr30VDDTsS7yPrN2Us4z2WXeJyGJOXLWMtTOra57qJL7IHUAQRJTeJE3e50atJAnDP5_H0qXoGAVSLUP3P-oY2gWCGPVVN8JBJ0o-uLPNasmpUPSrKSCtt7g63aBnhtAUFClsr3m0aPqHSmh8BJXBzoMXuMDdVNVAw7yaLZz5ntYxfd8gRm9eUuCeBOrBI6_GeDisFVFAc3BAFqhnSo-lZXoCfZTaijY4ppIH0Taf-ZdGi-bsAfiFX4XL3SrAmA=w320-h368-s-no?authuser=0" alt="logo" class="logo">#}
+{#        <br><img src="https://lh3.googleusercontent.com/lMdZQfjcQrYwzCsB98Xui6VL2bznjOV5Ivtf74lu2KZS00wVMW3rJjhSbYoTFFSkIuZkkRnMvlr_J3w45hcqOjp9dPi2KkqxRIlnJCMWBUdLjYEcpuOShvvwKDk4McMN2inX833nUnKyBjLy0KyQRHoGsgE2-SfEsewRa9ZbSQRjqPUyRfo5iiVeipoqfaAdN1jbOGYbNwqBcrBnxSkzmTDcRrCvEIH9Te6phwdUoYJcth-WAroGZP1tMJkF7uanV4AeLCEzwMokPUxZKdf2LXaG0BZgzharRimKUtj8MZGopiHkXQ7pK8-7GjhkGjjeOHTAxRSacc2-NrdUchtkHAKovhhpCzDlb8AM_RLbpPkdOWHXb7UKfbSQru3gB8RHA6frbdGfTBXl0VttZJqxCZdJ8fsJyOjlp6kdU25l1CryrG21C8b1HSubXWtZyCtzbs-a-DOdr20v60er5h9IvAX4bTIWUI-AFVchlQ8h8xwgDa6ON8efSMunfG9CD7GqDQfVJVOfU3F2hmLVdWnxCZGz00eY_HkRp72SrYWMn8ACk86VxUEt_smAJc06fM8gg1H0LMHykaISy-y1G-WsYi1B1lnYeMOKRNub2vHXZp0icilCuzkdqv6JECImIS7_kd3CSp78MBZpm2JCtvpGuTm9CBnyrjScb1q7jHRaHsltIt20GFhgeQaDFuSOzBA4zFOnp6i_ArEU6oph9IKRn8qv9NM0Dk5GgM9j9E1DAKKT3MMBUXIxNhAOl6rtOHNJ-sk7Q1PZ6Y6mn99Q6guD8jkrdPnCMJF48ba3voFCaFF9mninlMy6tNq8ZxrFuHew2k4pwJzZ27Cq283VYsKiSnIc7_mQMvrdw_wOqKLhsiM06HTRXu_bMkIRXu6VtWnCjNYyu0iKXIavc34n31RJGVBmXoMvmML7Ln2Ut-mM-8YB-VhCPFyYveS53nnEP8ZJTejFheE_VynwpD6TRM87Pg=w334-h61-s-no?authuser=0" alt="logo_name" class="logo_name">#}
+{##}
+{#        <!-- <h1>로그인</h1> -->#}
+{##}
+{#        <!-- <form method="POST">#}
+{#            {% csrf_token %}#}
+{#            <div class="form-field">#}
+{#                <label for="username"><i class="fa-solid fa-user-helmet-safety" style="color: #0f1020;"></i>아이디</label>#}
+{#                {{ form.username }}#}
+{#            </div>#}
+{##}
+{#            <div class="form-field">#}
+{#                <label for="password">비밀번호</label>#}
+{#                {{ form.password }}#}
+{#            </div>#}
+{##}
+{#        <div class="btn-container">#}
+{#            <button type="submit" class="btn btn-login">LOGIN</button>#}
+{#            <button type="button" class="btn btn-register" onclick="location.href='../create'">관리자 등록</button>#}
+{#        </div>#}
+{#        </form> -->#}
+{##}
+{#        <form method="POST">#}
+{#            {% csrf_token %}#}
+{#            <!-- {{ form.as_p }} -->#}
+{#            <!-- <label for="username">아이디</label>#}
+{#            <input type="text" id="username" name="username" placeholder="아이디를 입력하세요"><i class="fas fa-user-helmet-safety" style="color: #0f1020;"></i>#}
+{#            <label for="password">비밀번호</label>#}
+{#            <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요"> -->#}
+{##}
+{#            <div class="username-container">#}
+{#                <input type="text" #}
+{#                        placeholder="아이디를 입력하세요"#}
+{#                        name="uname" required> #}
+{#                <i class="fa-solid fa-helmet-safety"></i>#}
+{#            </div>#}
+{#              #}
+{#            <div class="password-container">#}
+{#                <input type="password"#}
+{#                        placeholder="비밀번호를 입력하세요"#}
+{#                        name="psw" required> #}
+{#                <i class="fa fa-key fa-lg"></i>#}
+{#            </div>#}
+{##}
+{#            <div class="btn-container">#}
+{#                <button type="submit" class="btn btn-login">LOGIN</button>#}
+{#                <a href="../create" class="register-button">관리자 등록</a>#}
+{#                <!-- <button type="button" class="btn btn-register" onclick="location.href='../create'">관리자등록</button> -->#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+  <div class="form-container">
+      <h1>로그인</h1>
+
+      <form method="POST">
+          {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+          {% endif %}
+
+          {% csrf_token %}
+          <div class="form-field">
+              <label for="username">아이디</label>
+              {{ form.username }}
+          </div>
+
+          <div class="form-field">
+              <label for="password">비밀번호</label>
+              {{ form.password }}
+          </div>
+
+      <div class="btn-container">
+          <button type="submit" class="btn btn-login">로그인</button>
+          <button type="button" class="btn btn-register" onclick="location.href='../create'">관리자 등록</button>
+      </div>
+      </form>
+  </div>
+
+</body>
+</html> 
+

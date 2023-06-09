@@ -1,0 +1,54 @@
+version: "3.7" # version of docker-compose 버전별로 특징이 docker hub 에 나와있다.
+services:
+  nginx:
+    image: nginx:1.19.5
+    networks:
+      - nginx-django
+    volumes:
+      - /home/project/nginx.conf:/etc/nginx/nginx.conf
+      - static-volume:/data/static
+      - media-volume:/data/media
+    ports:
+      - 80:80
+  django_container_gunicorn:
+    image: django_test:1
+    networks:
+      - nginx-django
+    volumes:
+      - /home/project/best.pt:/home/project/best.pt
+      - static-volume:/home/safezone/staticfiles
+      - media-volume:/home/safezone/media
+    secrets:
+      - MYSQL_PASSWORD
+      - DJANGO_SECRET_KEY
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - nginx-django
+    volumes:
+      - database-volume:/var/lib/mysql
+    secrets:
+      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD
+    environment:
+      MYSQL_DATABASE: safezone
+      MYSQL_USER: safezone
+      MYSQL_PASSWORD_FILE: /run/secrets/MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/MYSQL_ROOT_PASSWORD
+
+
+networks:
+  nginx-django:
+
+volumes:
+  static-volume:
+  media-volume:
+  database-volume:
+
+secrets:
+  DJANGO_SECRET_KEY:
+    external: true
+  MYSQL_PASSWORD:
+    external: true
+  MYSQL_ROOT_PASSWORD:
+    external: true

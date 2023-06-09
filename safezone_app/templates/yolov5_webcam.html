@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-+LsVWPG8T/1IcZOJxN9X7VJzrl8Zv7LZVLwOryH0MVtE/+JtURleOQzQ2cXf+QJOQ2RZJfFI/i+5ue5sh5q3qg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://kit.fontawesome.com/35b6327311.js" crossorigin="anonymous"></script>
+    <title>Pi Video Surveillance</title>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script>
+      $.ajaxSetup({
+        headers: { "X-CSRFToken": '{{csrf_token}}' }
+      });
+    </script>
+
+    <style>
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+        :root {
+            --glitched-duration: 1s;
+        }
+
+        @keyframes hxafter {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 0;
+            }
+            51% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body {
+            background-color: #0f1020;
+            font-family: 'nanumsquare', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #eaff00;
+            margin-bottom: 30px;
+        }
+
+        h1:after {
+            content: "_";
+            animation-name: hxafter;
+            animation-duration: var(--glitched-duration);
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            animation-delay: 0.5s;
+        }
+
+        .form-container {
+            margin-top: 500px;
+            max-width: 700px;
+            margin: 100px auto;
+            padding: 50px;
+            background-color: #0f1020;
+            box-shadow: 0px 0px 10px #eaff00(0, 0, 0, 0.1);
+            border-radius: 5px;
+            border: 2px solid #eaff00;
+        }
+
+        .btn {
+            font-size: 16px;
+        }
+        
+        .btn-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: left;
+        }
+       
+        .btn-start {
+            background-color: #eaff00;
+            border: 0.5px solid #0f1020;
+            color: #0f1020;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            margin-left: 10px;
+            margin-right: 110px;
+        }
+
+        .btn-stop {
+            background-color: #0f1020;
+            border: 0.5px solid #eaff00;
+            color: #eaff00;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .prompt-box {
+            margin-top: 30px;
+            max-width: 400px;
+            margin-bottom: 80px;
+            padding: 10px;
+            font-size: 13px;
+            background-color: #0f1020;
+            border: 1px solid #eaff00;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        #status-label {
+            margin-right: 5px;
+            color: #eaff00;
+        }
+
+        #output {
+            text-align: right;
+            flex-grow: 1;
+            color: #eaff00;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <div class="form-container">
+        <h1>YOLOv5 <br> Webcam Detection</h1>
+
+        <div class="btn-container">
+            <form method='POST'>
+                {% csrf_token %}
+                <button class="btn btn-start" id="startButton" onclick="toggleButton('startButton', 'stopButton')">Start Detection</button>
+            </form>
+            <button class="btn btn-stop" id="stopButton" onclick="toggleButton('stopButton', 'startButton')" disabled>Stop Detection</button><br>
+        </div>
+
+        <button class="fa-solid fa-house" style="color: #eaff00; background-color: transparent; border: none; font-size: 30px; position: absolute; top: 500px; right: 515px;" id="homeButton"></button>
+
+        <div class="prompt-box">
+            <span id="status-label">Status : </span>
+            <span id="output" style="float: right;"></span>
+        </div>
+        <button class="btn btn-start" id="get_log" onclick="updateLog()">views and reload</button>  
+        <button id="get_log_btn" onclick="getYolov5WebcamData()">Get Log</button>
+
+        <div class="violation-box">
+            <div class="text_container">
+                <textarea rows="10" cols="80">{{ log_text }}</textarea>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+
+    //$(document).ready(function() {
+        // 버튼 클릭 이벤트 처리
+        //$("#get_log").on("click", function() {
+            //updateLog();  // 로그 업데이트 함수 호출
+        //});
+    
+        // 로그 업데이트 함수
+        function updateLog() {
+            var getLogURL = '/get_log/';
+            $.ajax({
+                url: getLogURL,
+                type: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    console.log(data);
+                },
+                beforeSend: function() {
+                    console.log("I am waiting");
+                },
+                complete: function() {
+                    console.log("I am done");
+                },
+                error: function(request, status, error) {
+                    // do nothing or handle the error gracefully
+                }
+            });
+        }
+    
+        // Attach the click event handler programmatically
+        document.getElementById("get_log").addEventListener("click", updateLog);
+    
+        
+    //});
+    // yolov5_webcam 함수
+    function getYolov5WebcamData() {
+        $.ajax({
+          url: '/yolov5_webcam/',
+          type: 'GET',
+          dataType: 'html',
+          cache: false,
+          success: function(data) {
+            var logContent = $(data).find(".violation-content").val();
+            $("#violation-content").val(logContent);
+            location.reload(); // 페이지 새로고침
+          },
+          error: function(request, status, error) {
+            console.error("An error occurred:", error);
+          }
+        });
+      }
+      
+      function updateTextarea(content) {
+        $("#violation-content").val(content); // textarea 업데이트
+      }
+    function toggleButton(activeButtonId, inactiveButtonId) {
+        var activeButton = document.getElementById(activeButtonId);
+        var inactiveButton = document.getElementById(inactiveButtonId);
+
+        // 활성 버튼 스타일 변경
+        activeButton.style.backgroundColor = '#0f1020';
+        activeButton.style.color = '#eaff00';
+        activeButton.style.border = '0.5px solid #eaff00';
+
+        // 비활성 버튼 스타일 변경
+        inactiveButton.style.backgroundColor = '#eaff00';
+        inactiveButton.style.color = '#0f1020';
+    }
+
+    $(document).ready(function() {
+        function adjustWebcamSize() {
+            var webcamContainer = $("#WebCam");
+            var webcamImage = webcamContainer.find("img");
+
+            var webcamWidth = webcamImage.width();
+            var webcamHeight = webcamImage.height();
+
+            webcamContainer.css("width", webcamWidth + "px");
+            webcamContainer.css("height", webcamHeight + "px");
+        }
+
+        $(window).on("resize", adjustWebcamSize);
+        adjustWebcamSize();
+
+        $("#startButton").click(function() {
+            $(this).prop("disabled", true);
+            $("#stopButton").prop("disabled", false);
+            $("#homeButton").prop("disabled", true);
+            $("#output").html("Detection in progress...");
+    
+            $.ajax({
+                url: "/run_yolov5_webcam/",
+                type: "POST",
+                data: {
+                    'start_flag': true,
+                    'csrfmiddlewaretoken' : '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    $("#output").html(response.message);
+                    $("#stopButton").prop("disabled", false);
+                    $("#homeButton").prop("disabled", false);
+                },
+                error: function(xhr) {
+                    $("#output").html(xhr.responseText);
+                    $("#startButton").prop("disabled", false);
+                }
+            });
+        }); // Status
+    
+        $("#stopButton").click(function() {
+            $(this).prop("disabled", true);
+            $("#homeButton").prop("disabled", false);
+            $("#output").html("Stopping detection...");
+    
+            $.ajax({
+                url: "/yolov5_webcam/",
+                type: "POST",
+                data: {
+                    'stop_flag': true,
+                    'csrfmiddlewaretoken' : '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    $("#output").html(response.message);
+                    $("#startButton").prop("disabled", false);
+                },
+                error: function(xhr) {
+                    $("#output").html(xhr.responseText);
+                    $("#startButton").prop("disabled", false);
+                }
+            });
+        });
+    
+        $("#homeButton").click(function() {
+            window.location.href = "/";
+        });
+    });
+
+    
+</script>
+</body>
+</html>

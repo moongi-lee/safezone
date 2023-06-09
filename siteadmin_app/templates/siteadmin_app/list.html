@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>관리자 등록</title>
+    <meta charset="UTF-8">
+    <style>
+        .container div {
+          width: 250px;
+          height: 500px;
+          background-color: antiquewhite;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 1rem;
+        }
+        .container img{
+          width: 100%;
+          border-radius: 1rem;
+        }
+        a {
+            color: inherit;    /* 현재 색상을 상속받음 (클릭 시 색상 변경 방지) */
+            text-decoration: none;    /* 밑줄 제거 */
+        }
+
+        a:visited {
+            color: inherit;    /* 방문한 링크의 색상 변경 방지 */
+        }
+
+        a:hover {
+            color: inherit;    /* 마우스 오버 시 색상 변경 방지 */
+        }
+
+        a:active {
+            color: inherit;    /* 활성화된 링크 (클릭 시) 색상 변경 방지 */
+        }
+
+    </style>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    {% if siteadmin_list %}
+    <div class="container">
+        {% for siteadmin in siteadmin_list %}
+        <a href="{% url 'siteadmin_app:detail' pk=siteadmin.pk %}">
+            {% include 'snippets/card.html' with siteadmin=siteadmin %}
+        </a>
+        {% endfor %}
+    </div>
+    <script src="{% static 'js/magicgrid.js' %}"></script>
+    {% else %}
+    <div class="text-center">
+      <h1>등록된 현장 관리자가 없습니다.</h1>
+    </div>
+    {% endif %}
+
+    {% include 'snippets/pagination.html' with page_obj=page_obj %}
+
+    <div style="text-align: center">
+      <a href="{% url 'siteadmin_app:create' %}" class="btn btn-dark rouded-pill col-3 mt-3">
+        현장관리자 등록
+      </a>
+    </div>
+</body>
+</html>
