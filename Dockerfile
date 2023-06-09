@@ -26,7 +26,7 @@ RUN echo "testing1"
 
 RUN git clone https://github.com/moongi-lee/safezone.git
 
-WORKDIR /home/safezone/safezone
+WORKDIR /home/safezone
 
 RUN pip install -r requirements.txt
 
